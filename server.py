@@ -15,7 +15,12 @@ if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
-mcp = FastMCP("Body Tracker", stateless_http=True)
+mcp = FastMCP(
+    "Body Tracker",
+    stateless_http=True,
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", "8000")),
+)
 
 
 def now_utc():
@@ -296,6 +301,4 @@ def hyrox_progress() -> dict:
 
 
 if __name__ == "__main__":
-    mcp.settings.host = "0.0.0.0"
-    mcp.settings.port = int(os.getenv("PORT", "8000"))
-    mcp.run(transport="streamable-http")
+    mcp.run(transport="streamable-http")    
