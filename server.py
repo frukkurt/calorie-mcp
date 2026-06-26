@@ -296,9 +296,6 @@ def hyrox_progress() -> dict:
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "8000"))
-    mcp.run(
-        transport="streamable-http",
-        host="0.0.0.0",
-        port=port,
-    )
+    mcp.settings.host = "0.0.0.0"
+    mcp.settings.port = int(os.getenv("PORT", "8000"))
+    mcp.run(transport="streamable-http")
